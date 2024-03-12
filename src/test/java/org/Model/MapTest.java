@@ -1,0 +1,153 @@
+package org.Model;
+
+import org.Controller.GameEngine;
+import org.Exceptions.MapInvalidException;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.internal.matchers.Null;
+
+import static org.junit.Assert.*;
+
+public class MapTest {
+    Map d_map;
+
+    @Before
+    public void beforeMapTest(){
+        GameEngine l_gameEngine = new GameEngine();
+        GameEngine.setLoggerContext("testLog.txt");
+        d_map = new Map();
+    }
+
+    @Test
+    public void testDefaultLoadMap(){
+        try {
+            d_map.loadMap("europe.map");
+            assertEquals(d_map.getAllCountriesAsList().size(), 24);
+        } catch(MapInvalidException e){
+            assertNull(e);
+        }
+    }
+
+    @Test
+    public void testDefaultLoadMapSecond(){
+        try {
+            d_map.loadMap("europeInvalidMap2.map");
+        } catch(MapInvalidException e){
+            assertEquals(e.getMessage(),"Invalid Map Provided.");
+        }
+    }
+
+    @Test
+    public void testDefaultLoadMapThird(){
+        try{
+            d_map.loadMap("Invalid_canadaMap1.map");
+        } catch(MapInvalidException e){
+            assertEquals(e.getMessage(),"Invalid Map Provided.");
+        }
+    }
+
+    @Test
+    public void testDefaultMapValidity(){
+        try {
+            d_map.loadMap("europe.map");
+            d_map.validateMap();
+        } catch (MapInvalidException ex){
+            assertNull(ex);
+        }
+    }
+
+
+    @Test
+    public void testDefaultMapValiditySecond(){
+        try {
+            d_map.loadMap("europeInvalid2.map");
+            d_map.validateMap();
+        } catch (MapInvalidException ex){
+            assertEquals(ex.getMessage(),"Invalid Map Provided.");
+        }
+    }
+
+
+    @Test
+    public void testDefaultMapValidityThird(){
+        try {
+            d_map.loadMap("Invalid_canadaMap1.map");
+            d_map.validateMap();
+        } catch (MapInvalidException ex){
+            assertEquals(ex.getMessage(),"Invalid Map Provided.");
+        }
+    }
+
+    @Test
+    public void testConquestLoadMap(){
+        try {
+            d_map.loadMap("asia.map");
+            assertEquals(d_map.getAllCountriesAsList().size(), 48);
+        } catch(MapInvalidException e){
+            assertNull(e);
+        } catch (NullPointerException e){
+            System.out.println("Invalid Map Provided.");
+        }
+    }
+
+    @Test
+    public void testConquestLoadMapSecond(){
+        try {
+            d_map.loadMap("asia_invalid.map");
+        } catch(MapInvalidException e){
+            assertEquals(e.getMessage(),"Invalid Map Provided.");
+        } catch (NullPointerException e){
+            System.out.println("Invalid Map Provided.");
+        }
+    }
+
+    @Test
+    public void testConquestLoadMapThird(){
+        try{
+            d_map.loadMap("asia_invalid.map");
+        } catch(MapInvalidException e){
+            assertEquals(e.getMessage(),"Invalid Map Provided.");
+        } catch (NullPointerException e){
+            System.out.println("Invalid Map Provided.");
+        }
+    }
+
+    @Test
+    public void testConquestMapValidity(){
+        try {
+            d_map.loadMap("asia.map");
+            d_map.validateMap();
+        } catch (MapInvalidException ex){
+            assertNull(ex);
+        } catch (NullPointerException e ){
+            System.out.println("Invalid Map Provided.");
+        }
+    }
+
+
+    @Test
+    public void testConquestMapInvalidity(){
+        try {
+            d_map.loadMap("asia_invalid.map");
+            d_map.validateMap();
+        } catch (MapInvalidException ex){
+            assertEquals(ex.getMessage(),"Invalid Map Provided.");
+        } catch (NullPointerException e ){
+            System.out.println("Invalid Map Provided.");
+        }
+    }
+
+
+    @Test
+    public void testConquestMapInvalidity2(){
+        try {
+            d_map.loadMap("asia_invalid.map");
+            d_map.validateMap();
+        } catch (MapInvalidException ex){
+            assertEquals(ex.getMessage(),"Invalid Map Provided.");
+        } catch (NullPointerException e ){
+            System.out.println("Invalid Map Provided.");
+        }
+    }
+
+}
